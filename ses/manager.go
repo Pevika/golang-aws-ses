@@ -26,6 +26,7 @@ type Email struct {
 	profiles	map[string]*profile
 }
 
+// Creates a new manager
 func NewEmail (awsAccessKey string, awsSecretKey string, region string) *Email {
 	entity := new(Email)
 	cred := credentials.NewStaticCredentials(awsAccessKey, awsSecretKey, "")
@@ -36,6 +37,7 @@ func NewEmail (awsAccessKey string, awsSecretKey string, region string) *Email {
 	return entity
 }
 
+// Setup a profile to use with Send
 func (this *Email) SetupProfile (name string, from string, replyTo []string, returnPath string, returnPathArn string, sourceArn string) bool {
 	this.profiles[name] = &profile{
 		from: aws.String(from),
@@ -50,6 +52,7 @@ func (this *Email) SetupProfile (name string, from string, replyTo []string, ret
 	return true
 }
 
+// Sends an email to the specified destination
 func (this *Email) Send (p string, to []string, cc []string, bcc []string, subject string, htmlContent string, rawContent string, charset string) error {
 	pr := this.profiles[p]
 	if pr == nil {
