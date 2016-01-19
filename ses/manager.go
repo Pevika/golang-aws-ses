@@ -10,7 +10,6 @@ import (
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"errors"
-	"fmt"
 )
 
 type profile struct {
